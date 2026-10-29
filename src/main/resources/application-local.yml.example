@@ -1,0 +1,9 @@
+# Copia este archivo a application-local.yml y pega tus claves.
+# application-local.yml no se sube a git. Reinicia el backend después de editarlo.
+alojate:
+  imagenes:
+    cloud-name: ""
+    api-key: ""
+    api-secret: ""
+  mapas:
+    api-key: ""

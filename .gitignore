@@ -1,0 +1,10 @@
+target/
+application-local.yml
+.idea/
+*.iml
+.classpath
+.project
+.settings/
+.vscode/
+*.log
+.DS_Store

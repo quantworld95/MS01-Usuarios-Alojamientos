@@ -1,0 +1,15 @@
+package com.alojate.identidad.application.dto;
+
+import java.util.List;
+import java.util.UUID;
+
+public record UsuarioPublicoResponse(
+        UUID id,
+        String nombre,
+        String apellido,
+        String email,
+        String telefono,
+        String estado,
+        Integer rolId,
+        List<RestriccionResponse> restricciones) {
+}

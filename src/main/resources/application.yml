@@ -1,0 +1,46 @@
+spring:
+  profiles:
+    default: local
+  application:
+    name: ms-01-usuarios-alojamientos
+  datasource:
+    url: ${MS01_DB_URL:jdbc:postgresql://localhost:5432/alojate_usuarios}
+    username: ${MS01_DB_USERNAME:postgres}
+    password: ${MS01_DB_PASSWORD:123456}
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate.jdbc.time_zone: America/La_Paz
+  flyway:
+    enabled: true
+  servlet:
+    multipart:
+      max-file-size: 8MB
+      max-request-size: 8MB
+  mail:
+    host: ${MS01_MAIL_HOST:smtp.gmail.com}
+    port: ${MS01_MAIL_PORT:587}
+    username: ${MS01_MAIL_USERNAME:}
+    password: ${MS01_MAIL_PASSWORD:}
+    properties:
+      mail.smtp.auth: true
+      mail.smtp.starttls.enable: true
+      mail.smtp.starttls.required: true
+
+alojate:
+  sesion:
+    secreto: ${MS01_SESION_SECRETO:alojate-secreto-local-de-sesion-publica}
+  mail:
+    enabled: ${MS01_MAIL_ENABLED:false}
+    from: ${MS01_MAIL_FROM:${MS01_MAIL_USERNAME:}}
+  imagenes:
+    cloud-name: ${CLOUDINARY_CLOUD_NAME:}
+    api-key: ${CLOUDINARY_API_KEY:}
+    api-secret: ${CLOUDINARY_API_SECRET:}
+  mapas:
+    api-key: ${GOOGLE_MAPS_API_KEY:}
+
+server:
+  port: 8081
