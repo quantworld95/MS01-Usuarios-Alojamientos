@@ -188,6 +188,39 @@ Tras las migraciones existe un superadmin de desarrollo:
 
 ---
 
+## Permisos que usa MS-01 (nombres exactos)
+
+Si clonas el repo y quieres crear roles, trabajadores o un seed propio, estos son los **códigos** que deben existir en la tabla `permiso` y en el JWT. Hay que escribirlos **igual** (mayúsculas y guiones bajos).
+
+Flyway ya los inserta al arrancar. Fuente en código:
+
+- Constantes: `com.alojate.config.Permisos`
+- Seed SQL: `src/main/resources/db/migration/` (`V3`, `V5`, `V9`, `V17`, `V18`)
+
+### Catálogo activo
+
+| Código del permiso | Módulo | Para qué sirve |
+|--------------------|--------|----------------|
+| `ADMINISTRAR_ROLES` | IDENTIDAD | Crear/editar roles y asignar permisos (`/roles`, `/modulos`) |
+| `ADMINISTRAR_TRABAJADORES` | IDENTIDAD | Altas y gestión de cuentas corporativas (`/usuarios/corporativos`) |
+| `ADMINISTRAR_USUARIOS_PUBLICOS` | IDENTIDAD | Listar públicos, cambiar estado y restricciones (`/usuarios/publicos`) |
+| `MODERAR_ALOJAMIENTOS` | ALOJAMIENTOS | Aceptar, rechazar, suspender anuncios/habitaciones (`/admin/alojamientos`) |
+| `BUSCAR_ALOJAMIENTOS` | ALOJAMIENTOS | Consultar catálogo publicado (`/catalogo/alojamientos`) |
+| `PUBLICAR_ALOJAMIENTO` | ALOJAMIENTOS | Registrar y operar alojamientos propios (`/alojamientos`) |
+
+### Roles sembrados y qué permisos llevan
+
+| Rol | Ámbito | Códigos asignados |
+|-----|--------|-------------------|
+| `SUPERADMIN` | CORPORATIVO | `ADMINISTRAR_ROLES`, `ADMINISTRAR_TRABAJADORES`, `ADMINISTRAR_USUARIOS_PUBLICOS`, `MODERAR_ALOJAMIENTOS` |
+| `USUARIO_PUBLICO` | PUBLICO | `BUSCAR_ALOJAMIENTOS`, `PUBLICAR_ALOJAMIENTO` |
+
+Al hacer login, la sesión incluye la lista de esos códigos. Si creas un rol nuevo (por Swagger o SQL), **copia exactamente** los strings de la tabla de arriba; un typo (`Moderar_Alojamientos`, etc.) no coincidirá y dará `PERMISO_DENEGADO`.
+
+Para inspeccionarlos en caliente (con token de superadmin): `GET /modulos`.
+
+---
+
 ## Flujos rápidos (Swagger)
 
 1. **Authorize**  
